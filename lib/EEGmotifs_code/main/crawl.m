@@ -8,10 +8,10 @@ function crawl(information,parameters)
     saving_path = information.saving_path;
     FOLDER_NAME = strcat("EEGMotifs_",num2str(floor(now*100000)));
     
-    mkdir
+
     %% Create the base folder at right place
-    
-    information.saving_path = strcat(saving_path,filsep,FOLDER_NAME);
+    mkdir(saving_path,FOLDER_NAME);    
+    information.saving_path = strcat(saving_path,filesep,FOLDER_NAME);
     
     %% TODO: Start the workers here
     
