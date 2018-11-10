@@ -1,4 +1,4 @@
-function calculate_motifs(information,parameters)
+function crawl(information,parameters)
 %CALCULATE_MOTIFS Summary of this function goes here
 %   Detailed explanation goes here
     
@@ -8,6 +8,7 @@ function calculate_motifs(information,parameters)
     saving_path = information.saving_path;
     FOLDER_NAME = strcat("EEGMotifs_",num2str(floor(now*100000)));
     
+    mkdir
     %% Create the base folder at right place
     
     information.saving_path = strcat(saving_path,filsep,FOLDER_NAME);
