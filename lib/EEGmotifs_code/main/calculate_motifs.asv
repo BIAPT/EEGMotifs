@@ -12,8 +12,6 @@ function calculate_motifs(information,parameters)
     
     information.saving_path = strcat(saving_path,filsep,FOLDER_NAME);
     
-    %% TODO: Start the workers here
-    
     %% Crawling through the data
     
     % TODO: Need to crawl through each participant (FOR)
@@ -21,7 +19,8 @@ function calculate_motifs(information,parameters)
         participant_id = "";
         participant_saving_path = "";
         % TODO: Need to load the data from one folder
-        % TODO: COMPUTE HERE AND SAVE IN THE WORKER (PARFOR)
+        % 
     
+    % TODO: Need 
 end
 
