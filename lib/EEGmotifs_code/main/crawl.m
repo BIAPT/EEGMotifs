@@ -13,18 +13,17 @@ function crawl(information,parameters)
     mkdir(saving_path,FOLDER_NAME);    
     information.saving_path = strcat(saving_path,filesep,FOLDER_NAME);
     
+    disp(number_participant)
+    disp(participants)
     %% Start the workers here
     cluster_pool = gcp();
     %% Crawling through the data
-    disp(number_participant);
-    disp(loading_path);
-    disp(saving_path);
     % TODO: Need to crawl through each participant (FOR)
     for i = 1:number_participant
         % TODO: Create the saving folder for participant
-        participant_id = participants(i);
-        disp(participant_id);
-        participant_saving_path = "";
+        participant_id = participants(i).name
+        participant_saving_path = strcat(information.saving_path,filesep,participant_id);
+        mkdir(participant_saving_path);
         % TODO: Need to load the data from one folder
         % TODO: COMPUTE HERE AND SAVE IN THE WORKER (PARFOR)
     end
