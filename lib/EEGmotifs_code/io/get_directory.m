@@ -1,4 +1,4 @@
-function [number_participants,participants] = get_participants(loading_path)
+function [number_directory,directory] = get_directory(loading_path)
 %GET_NUMBER_PARTICIPANT Summary of this function goes here
 %   Detailed explanation goes here
     
@@ -8,14 +8,14 @@ function [number_participants,participants] = get_participants(loading_path)
     number_folder = numel(all_dir);
     
     %% Selecting only the real folder (not . and ..)
-    participants = [];
+    directory = [];
     for i =1:number_folder
-       current_participant = all_dir(i);
-       if(~strcmp(current_participant.name,".") && ~strcmp(current_participant.name,".."))
-           participants = [participants,current_participant]; 
+       current_directory = all_dir(i);
+       if(~strcmp(current_directory.name,".") && ~strcmp(current_directory.name,".."))
+           directory = [directory,current_directory]; 
        end
     end
     
-    number_participants = numel(participants);
+    number_directory = numel(directory);
 end
 
