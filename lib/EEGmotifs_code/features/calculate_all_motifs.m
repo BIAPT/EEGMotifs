@@ -1,4 +1,4 @@
-function [isError] = calculate_all_motifs(loading_folder,type,thresh,num_motifs,saving_folder)
+function [isError] = calculate_all_motifs(loading_folder,saving_folder,type,thresh,num_motifs)
 %CALCULATE_ALL_MOTIFS : Will load all matrix from a folder calculate the
 %motifs metrix and then save then in another folder
 % Input:
@@ -14,7 +14,7 @@ make_motif34lib; %Used to make motif34lib.m used by the functions
 for i = 1:size(listing)
     file_name = listing(i).name;
     full_path = strcat(loading_folder,'\',file_name);
-    if(contains(file_name, 'data.mat'))
+    if(contains(file_name, type))
         saving_path = strcat(saving_folder,'\','motifs_',file_name);
         data = load(full_path);
         if(strcmp(type,'dpli'))

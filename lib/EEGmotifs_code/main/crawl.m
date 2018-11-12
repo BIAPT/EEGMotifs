@@ -34,13 +34,9 @@ function crawl(information,parameters)
             
             information.saving_path = condition_saving_path;
             information.loading_path = condition_loading_path;
-            [number_files,files] = get_files(condition_loading_path);
             
             mkdir(condition_saving_path);
-            parfor k=1:number_files
-                disp(files(k).name)
-                process_file(information,parameters,files(k)); 
-            end 
+            process_folder(information,parameters); 
         end
     end
 end
