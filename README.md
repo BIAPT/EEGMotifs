@@ -1,5 +1,6 @@
 # EEGMotifs
 <p> Uses the <a href=https://sites.google.com/site/bctnet/>BCT toolbox</a></p>
+<p> Parallele computing can be used (multi core = faster) </p>
 
 Step to make motif_analysis.mlapp work:
 1) add the whole folder to your MATLAB path
