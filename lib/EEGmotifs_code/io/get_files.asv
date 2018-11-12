@@ -1,7 +1,0 @@
-function [number_files,files] = get_files(loading_path)
-%GET) Summary of this function goes here
-%   Detailed explanation goes here
-    all_files = dir(loading_path)
-    for i=1:
-end
-
