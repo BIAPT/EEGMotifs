@@ -17,6 +17,7 @@ function crawl(information,parameters)
     gcp();
     
     %% Crawling through the data
+    % First through each participant
     for i = 1:number_participant
         participant_id = participants(i).name;
         participant_saving_path = strcat(base_saving_path,filesep,participant_id);
@@ -27,6 +28,7 @@ function crawl(information,parameters)
         
         mkdir(participant_saving_path);
         [number_conditions,conditions] = get_directories(participant_loading_path);
+        % Then through each of the individual condition
         for j = 1:number_conditions
             condition_id = conditions(j).name;
             condition_saving_path = strcat(information.saving_path,filesep,condition_id);
@@ -36,6 +38,7 @@ function crawl(information,parameters)
             information.loading_path = condition_loading_path;
             
             mkdir(condition_saving_path);
+            % We process each condition folder appropriatly
             process_folder(information,parameters); 
         end
     end
