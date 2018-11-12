@@ -14,11 +14,11 @@ function crawl(information,parameters)
     mkdir(base_saving_path);    
 
     %% Start the workers here
-    gcp();
+    cluster_pool = gcp();
     
     %% Crawling through the data
     for i = 1:number_participant
-        participant_id = participants(i).name;
+        participant_id = participants(i).name
         participant_saving_path = strcat(base_saving_path,filesep,participant_id);
         participant_loading_path = strcat(loading_path,filesep,participant_id);
         
@@ -35,11 +35,9 @@ function crawl(information,parameters)
             information.saving_path = condition_saving_path;
             information.loading_path = condition_loading_path;
             [number_files,files] = get_files(condition_loading_path);
-            
-            mkdir(condition_saving_path);
             parfor k=1:number_files
                 disp(files(k).name)
-                process_file(information,parameters,files(k)); 
+               %%process_file(information,parameters,files(j)); 
             end 
         end
     end
