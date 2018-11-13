@@ -31,8 +31,8 @@ function crawl(information,parameters)
         % Then through each of the individual condition
         for j = 1:number_conditions
             condition_id = conditions(j).name;
-            condition_saving_path = strcat(information.saving_path,filesep,condition_id);
-            condition_loading_path = strcat(information.loading_path,filesep,condition_id);
+            condition_saving_path = strcat(participant_saving_path,filesep,condition_id);
+            condition_loading_path = strcat(participant_loading_path,filesep,condition_id);
             
             information.saving_path = condition_saving_path;
             information.loading_path = condition_loading_path;
