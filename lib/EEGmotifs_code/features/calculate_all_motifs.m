@@ -9,8 +9,6 @@ function [isError] = calculate_all_motifs(loading_folder,saving_folder,type,thre
 % Output:
 % isError = 1 if error and 0 if no error
 listing = dir(loading_folder);
-disp(size(listing))
-make_motif34lib; %Used to make motif34lib.m used by the functions
 for i = 1:size(listing)
     file_name = listing(i).name;
     full_path = strcat(loading_folder,'\',file_name);
@@ -28,6 +26,5 @@ for i = 1:size(listing)
        save(saving_path, 'motifs');
     end
 end 
-delete 'motif34lib.mat'
 end
 

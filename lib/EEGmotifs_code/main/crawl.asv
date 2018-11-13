@@ -14,10 +14,9 @@ function crawl(information,parameters)
     mkdir(base_saving_path);    
 
     %% Start the workers here
-    gcp();
+    
     %% Crawling through the data
     % First through each participant
-    make_motif34lib; %Used to make motif34lib.m used by the functions
     for i = 1:number_participant
         participant_id = participants(i).name;
         participant_saving_path = strcat(base_saving_path,filesep,participant_id);
@@ -29,11 +28,18 @@ function crawl(information,parameters)
         mkdir(participant_saving_path);
         [number_conditions,conditions] = get_directories(participant_loading_path);
         % Then through each of the individual condition
-        parfor index = 1:number_conditions
+        for index = 1:number_conditions
+            condition_id = conditions(index).name;
+            condition_saving_path = strcat(participant_saving_path,filesep,condition_id);
+            condition_loading_path = strcat(participant_loading_path,filesep,condition_id);
+            
+            information.saving_path = condition_saving_path;
+            information.loading_path = condition_loading_path;
+            
+            mkdir(condition_saving_path);
             % We process each condition folder appropriatly
-            process_folder(information,parameters,index,conditions); 
+            process_folder(information,parameters,index,condition); 
         end
     end
-    delete 'motif34lib.mat'
 end
 
