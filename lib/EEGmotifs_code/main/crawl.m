@@ -30,7 +30,7 @@ function crawl(information,parameters)
         [number_conditions,conditions] = get_directories(participant_loading_path);
         
         % Then through each of the individual condition
-        for index = 1:number_conditions
+        parfor index = 1:number_conditions
             
             % We process each condition folder appropriatly
             process_folder(information,parameters,index,conditions); 

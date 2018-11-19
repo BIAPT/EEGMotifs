@@ -2,7 +2,7 @@ function [t_matrix] = threshold(matrix,analysis_type,is_binary,thresh)
 %THRESHOLD Summary of this function goes here
 %   Detailed explanation goes here
     if(is_binary)
-        t_matrix = threshold_binary(matrix,analysis_type,thresh)
+        t_matrix = threshold_binary(matrix,analysis_type,thresh);
     else
        t_matrix = threshold_weighted(matrix,analysis_type); 
     end

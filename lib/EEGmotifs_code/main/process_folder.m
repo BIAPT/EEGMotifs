@@ -18,9 +18,9 @@ function process_folder(information,parameters,index,conditions)
     
     threshold = parameters.general.threshold;
     number_motifs = parameters.general.number_motifs;
-    
+    is_binary = parameters.general.is_binary;
     disp(strcat("Processing folder: ",information.loading_path));
     calculate_all_motifs(information.loading_path,information.saving_path,...
-                        type,threshold,number_motifs);
+                        type,threshold,number_motifs,is_binary);
 end
 

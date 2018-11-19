@@ -18,7 +18,7 @@ disp('Setup...');
 type = lower(type); % put the type to lowercase
 if(strcmp(type,'dpli') || strcmp(type,'nste'))
     %% Thresholding
-    matrix = threshold(matrix,type,is_binary,thresh)
+    matrix = threshold(matrix,type,is_binary,thresh);
     if(isnan(matrix))
         error('ERROR in THRESHOLD');
         return;
