@@ -16,6 +16,10 @@ function [intensity,coherence,frequency,frequency_motifs] = calculate_motifs(mat
 
 disp('Setup...');
 type = lower(type); % put the type to lowercase
+frequency = NaN;
+frequency_motifs = NaN;
+intensity = NaN;
+coherence = NaN;
 if(strcmp(type,'dpli') || strcmp(type,'nste'))
     %% Thresholding
     matrix = threshold(matrix,type,is_binary,thresh)
@@ -25,7 +29,7 @@ if(strcmp(type,'dpli') || strcmp(type,'nste'))
     end
     
     %% Motif Caculations
-    [intensity,coherence,frequency,frequency_motifs] = compute(matrix,num_motifs,is_binary);
+    [frequency,frequency_motifs] = compute_bin(matrix,num_motifs);
     if(isnan(frequency))
         error('NUMBER OF MOTIFS NOT EQUAL TO 3 OR 4');
         return;
@@ -53,9 +57,9 @@ function [I,Q,F,f] = compute(t_matrix,num_motifs,is_binary)
     F = NaN;
     f = NaN;
     if(is_binary)
-       [F,f] = compute_bin(t_matrix,num_motifs);
+       compute_bin(t_matrix,num_motifs) 
     else
-       [I,Q,F] = compute_wei(t_matrix,num_motifs);
+       [I,F] = compute_wei(t_matrix,num_motifs);
     end
 end
 
@@ -89,8 +93,8 @@ function [F,f] = compute_bin(t_matrix,num_motifs)
     F = NaN;
     f = NaN;
     if(num_motifs == 3)
-        [f,F] = motif3funct_bin(t_matrix);
+        [F,f] = motif3funct_bin(t_matrix);
     elseif(num_motifs == 4)
-        [f,F] = motif4funct_bin(t_matrix);
+        [F,f] = motif4funct_bin(t_matrix);
     end
 end
