@@ -22,7 +22,7 @@ for i = 1:size(listing)
         end
         motifs = struct();
         disp(['Analyzing file: ',file_name]); 
-       [motifs.I,motifs.Q, motifs.F] = calculate_motifs(matrix,type,thresh,num_motifs,0,0);
+       [motifs.F,motifs.f] = calculate_motifs(matrix,type,thresh,num_motifs,0,0);
        save(saving_path, 'motifs');
     end
 end 

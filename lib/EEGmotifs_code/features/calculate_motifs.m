@@ -1,8 +1,8 @@
-function [Intensity,Coherence,Frequency] = calculate_motifs(matrix,type,thresh,num_motifs,isPlot,normalize)
+function [Frequency,frequency] = calculate_motifs(matrix,type,thresh,num_motifs,isPlot,normalize)
 %CALCULATE_MOTIFS : 
 %Calculate the frequency, intensity and coherence of a dpli or NSTE matrix 
 %[Intensity,Coherence,Frequency] = calculate_motifs(matrix,type,num_motifs)
-%   Input: Mahdid Y. Automatic Pipeline for EEG Network Processing, McGill Neuroscience Undergraduate Students Research Event, Montreal, Quebec, March 2017. I presented the EEGapp software to neuroscience undergraduates at McGill University. 
+%   Input: 
 %   matrix = dPLI or NSTE matrix obtained from EEGapp
 %   type = 'nste' or 'dpli'
 %   num_motifs = 3 or 4, depending if we want 3 or 4 motifs
@@ -17,19 +17,20 @@ function [Intensity,Coherence,Frequency] = calculate_motifs(matrix,type,thresh,n
 disp('Setup...');
 type = lower(type); % put the type to lowercase
 Frequency = NaN;
+frequency = NaN;
 Intensity = NaN;
 Coherence = NaN;
 if(strcmp(type,'dpli') || strcmp(type,'nste'))
     %% Thresholding
-    matrix = threshold(matrix,type,thresh);
+    matrix = threshold(matrix,type,thresh)
     if(isnan(matrix))
         error('ERROR in THRESHOLD');
         return;
     end
     
     %% Motif Caculations
-    [Intensity,Coherence,Frequency] = compute(matrix,num_motifs);
-    if(isnan(Intensity))
+    [Frequency,frequency] = compute_bin(matrix,num_motifs);
+    if(isnan(Frequency))
         error('NUMBER OF MOTIFS NOT EQUAL TO 3 OR 4');
         return;
     end
@@ -73,6 +74,15 @@ function [t_matrix] = threshold(matrix,type,thresh)
         size_m = length(matrix);
         t_matrix = zeros(size_m,size_m);
         
+        A = sort(matrix); % sort pli
+        B = sort(matrix(:)); % sort all value in A
+        index = floor(length(B)*(1-thresh)); 
+        threshold_value = B(index);
+        t_matrix = matrix;
+        t_matrix(t_matrix < threshold_value) = 0;
+        t_matrix(t_matrix >= threshold_value) = 1;
+        
+        %{
         %Here we make a matrix of phase lead bounded from 0 to 1
         for i = 1:size_m
             for j = 1:size_m
@@ -85,6 +95,7 @@ function [t_matrix] = threshold(matrix,type,thresh)
                 end
             end
         end
+        %}
     elseif(strcmp(type,'nste'))
        size_m = length(matrix);
        t_matrix = zeros(size_m,size_m);
@@ -127,7 +138,7 @@ function [t_matrix] = threshold(matrix,type,thresh)
    
 end
 
-function [I,Q,F] = compute(t_matrix,num_motifs)
+function [I,Q,F] = compute_wei(t_matrix,num_motifs)
 %COMPUTE : calculate motifs of the matrix
 %   Input: 
 %   t_matrix = thresholded matrix
@@ -142,6 +153,23 @@ function [I,Q,F] = compute(t_matrix,num_motifs)
         [I,Q,F] = motif3funct_wei(t_matrix);
     elseif(num_motifs == 4)
         [I,Q,F] = motif4funct_wei(t_matrix);
+    end
+end
+
+function [F,f] = compute_bin(t_matrix,num_motifs)
+%COMPUTE : calculate motifs of the matrix
+%   Input: 
+%   t_matrix = thresholded matrix
+%   num_motifs = number of motifs, either 3 or 4
+%   I,Q,F = intensity, coherence and frequency
+%   If equals to NaN means that there is an error
+    disp('Motif Analysis...');
+    F = NaN;
+    f = NaN;
+    if(num_motifs == 3)
+        [F,f] = motif3funct_bin(t_matrix);
+    elseif(num_motifs == 4)
+        [F,f] = motif4funct_bin(t_matrix);
     end
 end
 
