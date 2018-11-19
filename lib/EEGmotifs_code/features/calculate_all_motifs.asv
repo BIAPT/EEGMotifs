@@ -30,9 +30,8 @@ for i = 1:size(listing)
           motifs.motif_frequency = f;
        else
            motifs.graph_type = "weighted";
-           motifs.node_intensity = I;
            motifs.node_frequency = F;
-           motifs.node_coherence = Q;
+           motifs.node_intensity 
        end
        save(saving_path, 'motifs');
     end
