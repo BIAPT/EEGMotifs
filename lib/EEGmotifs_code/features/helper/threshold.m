@@ -13,14 +13,16 @@ function [t_matrix] = threshold_binary(matrix,type,threshold)
     if(strcmp(type,'dpli'))
         size_m = length(matrix);
         t_matrix = zeros(size_m,size_m);
-        
+        matrix(matrix < 0.5) = 0;
         A = sort(matrix); % sort pli
         B = sort(matrix(:)); % sort all value in A
-        index = floor(length(B)*(1-threshold)); 
+        zero_element = sum(B < 0.5);
+        index = floor((length(B)-zero_element)*(1-threshold) + zero_element);
         threshold_value = B(index);
         t_matrix = matrix;
         t_matrix(t_matrix < threshold_value) = 0;
         t_matrix(t_matrix >= threshold_value) = 1;
+        
        
     elseif(strcmp(type,'nste')) %% TODO here I didn't change the code just yet
        size_m = length(matrix);
