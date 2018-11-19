@@ -53,3 +53,12 @@ topoplot(F(i,:),EEG_info.chanlocs,'maplimits','absmax', 'electrodes', 'off');
 colorbar;
 end
 end
+
+
+function plot_motifs_bin(F,f,norm)
+
+end
+
+function plot_motifs_wei(I,Q,F,norm)
+
+end
