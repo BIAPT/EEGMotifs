@@ -14,7 +14,7 @@ function [intensity,coherence,frequency,frequency_motifs] = calculate_motifs(mat
 %   functions
 %   If error occured Frequency,Intensity and Coherence will return NaN
 
-disp('Setup...');
+%disp('Setup...');
 type = lower(type); % put the type to lowercase
 if(strcmp(type,'dpli') || strcmp(type,'nste'))
     %% Thresholding
@@ -67,7 +67,7 @@ function [I,Q,F] = compute_wei(t_matrix,num_motifs)
 %   num_motifs = number of motifs, either 3 or 4
 %   I,Q,F = intensity, coherence and frequency
 %   If equals to NaN means that there is an error
-    disp('Motif Analysis...');
+%    disp('Motif Analysis...');
     I = NaN;
     Q = NaN;
     F = NaN;
@@ -85,7 +85,7 @@ function [F,f] = compute_bin(t_matrix,num_motifs)
 %   num_motifs = number of motifs, either 3 or 4
 %   I,Q,F = intensity, coherence and frequency
 %   If equals to NaN means that there is an error
-    disp('Motif Analysis...');
+%    disp('Motif Analysis...');
     F = NaN;
     f = NaN;
     if(num_motifs == 3)
