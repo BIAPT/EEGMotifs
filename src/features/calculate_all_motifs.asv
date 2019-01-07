@@ -46,8 +46,11 @@ for i = 1:size(listing)
        figure_path_c = strcat(saving_folder,'\','figure_',name,'_coherence');        
        [figure_f,figure_i,figure_c] = plot_motifs(motifs,1);
        saveas(figure_f,figure_path_f,'fig')
-       saveas(figure_i,figure_path_i,'fig')
-       saveas(figure_c,figure_path_c,'fig')
+       saveas(figure_f,figure_path_i,'fig')
+       saveas(figure_f,figure_path_c,'fig')
+       save(figure_path_f,'figure_f');
+       save(figure_path_i,'figure_i');
+       save(figure_path_c,'figure_c');
     end
 end
 end

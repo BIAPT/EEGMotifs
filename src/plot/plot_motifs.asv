@@ -1,4 +1,4 @@
-function [figure_f,figure_i,figure_c] = plot_motifs(motifs,normalization)
+function [figure_f,figureplot_motifs(motifs,normalization)
 %PLOT_MOTIFS : Make plots for the I Q F
 %   Input: 
 %   Intensity,Coherence and Frequency 
@@ -10,7 +10,7 @@ function [figure_f,figure_i,figure_c] = plot_motifs(motifs,normalization)
     if(strcmp(motifs.graph_type,"binary"))
         plot_motifs_bin(EEG_info,motifs.node_frequency,motifs.motif_frequency,normalization);
     elseif(strcmp(motifs.graph_type,"weighted"))
-        [figure_f,figure_i,figure_c] = plot_motifs_wei(EEG_info,motifs.node_intensity,motifs.node_coherence,motifs.node_frequency,normalization);
+        plot_motifs_wei(EEG_info,motifs.node_intensity,motifs.node_coherence,motifs.node_frequency,normalization);
     end
 end
 
@@ -39,8 +39,8 @@ function plot_motifs_bin(EEG_info,F,f,norm)
     title("Motif frequency")
 end
 
-function [figure_f,figure_i,figure_c] = plot_motifs_wei(EEG_info,I,Q,F,norm)
-    figure_i = figure('visible','on');
+function plot_motifs_wei(EEG_info,I,Q,F,norm)
+    figure
     size_m = size(Q,1);
     for i = 1:size_m
         if(size_m == 13)
@@ -57,7 +57,7 @@ function [figure_f,figure_i,figure_c] = plot_motifs_wei(EEG_info,I,Q,F,norm)
     colorbar;
     end
 
-    figure_c = figure('visible','on');
+    figure
     for i = 1:size_m
         if(size_m == 13)
         subplot(4,4,i)
@@ -72,7 +72,7 @@ function [figure_f,figure_i,figure_c] = plot_motifs_wei(EEG_info,I,Q,F,norm)
     colorbar;
     end
 
-    figure_f = figure('visible','on');
+    figure
     for i = 1:size_m
         if(size_m == 13)
         subplot(4,4,i)
