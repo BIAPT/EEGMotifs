@@ -4,7 +4,7 @@ function [figure_f,figure_i,figure_c] = plot_motifs(motifs,normalization)
 %   Intensity,Coherence and Frequency 
 %   norm = 1 or 0 means normalization or not
 
-    EEG_info = load('EEG_info_7.mat');
+    EEG_info = load('EEG_info_WSAS15.mat');
     EEG_info = EEG_info.EEG_info;
 
     if(strcmp(motifs.graph_type,"binary"))
@@ -26,7 +26,7 @@ function plot_motifs_bin(EEG_info,F,f,norm)
         end
 
     if(norm == 1)
-        F(i,:) = (F(i,:) - mean(F(i,:)))/std(F(:,i));    
+        F(i,:) = (F(i,:) - mean(F(i,:)))/std(F(i,:));    
     end
     title(['Node Frequency: ',num2str(i)]);
     topoplot(F(i,:),EEG_info.chanlocs,'maplimits','absmax', 'electrodes', 'off');
@@ -44,13 +44,14 @@ function [figure_f,figure_i,figure_c] = plot_motifs_wei(EEG_info,I,Q,F,norm)
     size_m = size(Q,1);
     for i = 1:size_m
         if(size_m == 13)
-        subplot(4,4,i)
+            subplot(4,4,i)
         else
 
         end
 
+        %% TODO error here std(I(:,i)) -> should be std(I(i,:))
     if(norm == 1)
-        I(i,:) = (I(i,:) - mean(I(i,:)))/std(I(:,i));    
+        I(i,:) = (I(i,:) - mean(I(i,:)))/std(I(i,:));    
     end
     title(['I: ',num2str(i)]);
     topoplot(I(i,:),EEG_info.chanlocs,'maplimits','absmax', 'electrodes', 'off');
@@ -65,7 +66,7 @@ function [figure_f,figure_i,figure_c] = plot_motifs_wei(EEG_info,I,Q,F,norm)
 
         end
     if(norm == 1)
-        Q(i,:) = (Q(i,:) - mean(Q(i,:)))/std(Q(:,i));    
+        Q(i,:) = (Q(i,:) - mean(Q(i,:)))/std(Q(i,:));    
     end    
     title(['Q: ',num2str(i)]);
     topoplot(Q(i,:),EEG_info.chanlocs,'maplimits','absmax', 'electrodes', 'off');
@@ -80,7 +81,7 @@ function [figure_f,figure_i,figure_c] = plot_motifs_wei(EEG_info,I,Q,F,norm)
 
         end
     if(norm == 1)
-        F(i,:) = (F(i,:) - mean(F(i,:)))/std(F(:,i));    
+        F(i,:) = (F(i,:) - mean(F(i,:)))/std(F(i,:));    
     end    
     title(['F: ',num2str(i)]);
     topoplot(F(i,:),EEG_info.chanlocs,'maplimits','absmax', 'electrodes', 'off');
