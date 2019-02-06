@@ -1,5 +1,26 @@
-function [validated_network] = random_network_validation(original_network,p_value,rewiring_parameter)
+function [validated_network] = random_network_validation(original_network,...
+                                p_value,rewiring_parameter,number_random_network)
 %RANDOM_NETWORK_VALIDATION Summary of this function goes here
 %   Detailed explanation goes here
+
+    % Function will be using randmio_dir.m from the BCT toolbox
+    
+    %% 1) Calculate the motif for our network of interest.
+    
+    %% 2) Create X random network using our network of interest 
+    
+    %% 3) Calculate the motif for the X random network. (BOTTLE NECK)
+    
+    %% 4) Calculate the Z score for each motifs
+    
+    %% 5) Flag as statistically significant the motifs that have a Z = 1.96 (p < 0.05)
 end
 
+function [z_score] = calculate_z_score(original_motifs,random_motifs)
+    [random_motif_mean,random_motif_std] = calculate_statistics(random_motifs)
+    %% Here will use the 
+end
+
+function [motif_mean,motif_std] = calculate_statistics(random_motifs)
+
+end
