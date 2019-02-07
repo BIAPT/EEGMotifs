@@ -27,7 +27,6 @@ function [motifs] = random_network_validation(og_network,rewiring,number_rand_ne
     [og_network] = threshold(og_network,"dpli",0,0);
     
     %% 1) Calculate the motif for our network of interest.
-    disp('Calculate Motif for NOI')
     [og_intensity,og_coherence,og_frequency] = motif3funct_wei(og_network);
     % Saving the motifs for the return
     motifs.raw_intensity = og_intensity;
@@ -76,5 +75,11 @@ function [motifs] = random_network_validation(og_network,rewiring,number_rand_ne
     motifs.node_intensity = og_intensity;
     motifs.node_coherence = og_coherence;
     
+    % Save the z_score for the frequency
+    motifs.z_score_frequency = z_score_frequency;
+    
+    % default values we need for the plotting to work
+    motifs.analysis_type = "dpli";
+    motifs.graph_type = "weighted";
 end
 
