@@ -1,4 +1,4 @@
-function [motifs] = random_network_validation(network,rewiring,number_rand_network)
+function [motifs] = calculate_validated_motifs(network,rewiring,number_rand_network)
 %RANDOM_NETWORK_VALIDATION calculate motifs and z score for frequency
 %   Detailed explanation goes here
 
