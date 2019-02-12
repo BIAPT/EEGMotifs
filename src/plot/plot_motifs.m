@@ -4,7 +4,7 @@ function [figure_f,figure_i,figure_c] = plot_motifs(motifs,normalization)
 %   Intensity,Coherence and Frequency 
 %   norm = 1 or 0 means normalization or not
 
-    EEG_info = load('EEG_info_WSAS15.mat');
+    EEG_info = load('EEG_info_MDAF05.mat');
     EEG_info = EEG_info.EEG_info;
 
     if(strcmp(motifs.graph_type,"binary"))
@@ -40,7 +40,7 @@ function plot_motifs_bin(EEG_info,F,f,norm)
 end
 
 function [figure_f,figure_i,figure_c] = plot_motifs_wei(EEG_info,I,Q,F,norm)
-    figure_i = figure('visible','on');
+    figure_i = figure('visible','off');
     size_m = size(Q,1);
     for i = 1:size_m
         if(size_m == 13)
@@ -50,7 +50,7 @@ function [figure_f,figure_i,figure_c] = plot_motifs_wei(EEG_info,I,Q,F,norm)
         end
 
         %% TODO error here std(I(:,i)) -> should be std(I(i,:))
-    if(norm == 1)
+    if(norm == 1 && std(I(i,:)) ~= 0)
         I(i,:) = (I(i,:) - mean(I(i,:)))/std(I(i,:));    
     end
     title(['I: ',num2str(i)]);
@@ -58,14 +58,14 @@ function [figure_f,figure_i,figure_c] = plot_motifs_wei(EEG_info,I,Q,F,norm)
     colorbar;
     end
 
-    figure_c = figure('visible','on');
+    figure_c = figure('visible','off');
     for i = 1:size_m
         if(size_m == 13)
         subplot(4,4,i)
         else
 
         end
-    if(norm == 1)
+    if(norm == 1 && std(Q(i,:)) ~= 0)
         Q(i,:) = (Q(i,:) - mean(Q(i,:)))/std(Q(i,:));    
     end    
     title(['Q: ',num2str(i)]);
@@ -73,18 +73,23 @@ function [figure_f,figure_i,figure_c] = plot_motifs_wei(EEG_info,I,Q,F,norm)
     colorbar;
     end
 
-    figure_f = figure('visible','on');
+    figure_f = figure('visible','off');
     for i = 1:size_m
         if(size_m == 13)
         subplot(4,4,i)
         else
 
         end
-    if(norm == 1)
+        
+    if(norm == 1 && std(F(i,:)) ~= 0)
         F(i,:) = (F(i,:) - mean(F(i,:)))/std(F(i,:));    
     end    
     title(['F: ',num2str(i)]);
     topoplot(F(i,:),EEG_info.chanlocs,'maplimits','absmax', 'electrodes', 'off');
     colorbar;
     end
+    
+    set(figure_i,'CreateFcn','set(gcf,''Visible'',''on'')'); 
+    set(figure_c,'CreateFcn','set(gcf,''Visible'',''on'')'); 
+    set(figure_f,'CreateFcn','set(gcf,''Visible'',''on'')'); 
 end

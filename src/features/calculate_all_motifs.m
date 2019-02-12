@@ -22,20 +22,10 @@ for i = 1:size(listing)
         elseif(strcmp(type,'nste'))
             matrix = data.NSTE;        
         end
-        motifs = struct();
-        motifs.analysis_type = type;
-        disp(['Analyzing file: ',file_name]); 
-       [I,Q,F,f] = calculate_motifs(matrix,type,thresh,num_motifs,is_binary);
-       if(is_binary)
-          motifs.graph_type = "binary";
-          motifs.node_frequency = F;
-          motifs.motif_frequency = f;
-       else
-           motifs.graph_type = "weighted";
-           motifs.node_intensity = I;
-           motifs.node_frequency = F;
-           motifs.node_coherence = Q;
-       end
+
+       disp(['Analyzing file: ',file_name]); 
+       motifs = calculate_validated_motifs(matrix,10,20);
+       
        % Save the motifs
        save(saving_path, 'motifs');
        
@@ -43,7 +33,8 @@ for i = 1:size(listing)
        [filepath,name,ext] = fileparts(file_name);
        figure_path_f = strcat(saving_folder,'\','figure_',name,'_frequency');
        figure_path_i = strcat(saving_folder,'\','figure_',name,'_intensity');
-       figure_path_c = strcat(saving_folder,'\','figure_',name,'_coherence');        
+       figure_path_c = strcat(saving_folder,'\','figure_',name,'_coherence');  
+       
        [figure_f,figure_i,figure_c] = plot_motifs(motifs,1);
        saveas(figure_f,figure_path_f,'fig')
        saveas(figure_i,figure_path_i,'fig')
