@@ -1,4 +1,4 @@
-function [isError] = calculate_all_motifs(loading_folder,saving_folder,type,thresh,num_motifs,is_binary)
+function [isError] = calculate_all_motifs(loading_folder,saving_folder,type,thresh,num_motifs,is_binary,eeg_info_name)
 %CALCULATE_ALL_MOTIFS : Will load all matrix from a folder calculate the
 %motifs metrix and then save then in another folder
 % Input:
@@ -24,7 +24,7 @@ for i = 1:size(listing)
         end
 
        disp(['Analyzing file: ',file_name]); 
-       motifs = calculate_validated_motifs(matrix,10,20);
+       motifs = calculate_validated_motifs(matrix,10,2);
        
        % Save the motifs
        save(saving_path, 'motifs');
@@ -35,7 +35,7 @@ for i = 1:size(listing)
        figure_path_i = strcat(saving_folder,'\','figure_',name,'_intensity');
        figure_path_c = strcat(saving_folder,'\','figure_',name,'_coherence');  
        
-       [figure_f,figure_i,figure_c] = plot_motifs(motifs,1);
+       [figure_f,figure_i,figure_c] = plot_motifs(motifs,1,eeg_info_name);
        saveas(figure_f,figure_path_f,'fig')
        saveas(figure_i,figure_path_i,'fig')
        saveas(figure_c,figure_path_c,'fig')

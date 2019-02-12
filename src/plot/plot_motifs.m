@@ -1,10 +1,10 @@
-function [figure_f,figure_i,figure_c] = plot_motifs(motifs,normalization)
+function [figure_f,figure_i,figure_c] = plot_motifs(motifs,normalization,eeg_info_name)
 %PLOT_MOTIFS : Make plots for the I Q F
 %   Input: 
 %   Intensity,Coherence and Frequency 
 %   norm = 1 or 0 means normalization or not
 
-    EEG_info = load('EEG_info_MDAF05.mat');
+    EEG_info = load(eeg_info_name);
     EEG_info = EEG_info.EEG_info;
 
     if(strcmp(motifs.graph_type,"binary"))

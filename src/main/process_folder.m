@@ -1,4 +1,4 @@
-function process_folder(information,parameters,index,conditions)
+function process_folder(information,parameters,index,conditions,eeg_info_name)
 %PROCESS_FILE Summary of this function goes here
 %   Detailed explanation goes here
     condition_id = conditions(index).name;
@@ -21,6 +21,6 @@ function process_folder(information,parameters,index,conditions)
     is_binary = parameters.general.is_binary;
     disp(strcat("Processing folder: ",information.loading_path));
     calculate_all_motifs(information.loading_path,information.saving_path,...
-                        type,threshold,number_motifs,is_binary);
+                        type,threshold,number_motifs,is_binary,eeg_info_name);
 end
 

@@ -29,11 +29,14 @@ function crawl(information,parameters)
         mkdir(participant_saving_path);
         [number_conditions,conditions] = get_directories(participant_loading_path);
         
+        
+        % HERE WE LOAD THE EEG_INFO
+        eeg_info_name = strcat('EEG_info_',participant_id,'.mat');
         % Then through each of the individual condition
         parfor index = 1:number_conditions
             
             % We process each condition folder appropriatly
-            process_folder(information,parameters,index,conditions); 
+            process_folder(information,parameters,index,conditions,eeg_info_name); 
         end
     end
     delete 'motif34lib.mat'
