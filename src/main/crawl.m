@@ -33,7 +33,7 @@ function crawl(information,parameters)
         % HERE WE LOAD THE EEG_INFO
         eeg_info_name = strcat('EEG_info_',participant_id,'.mat');
         % Then through each of the individual condition
-        parfor index = 1:number_conditions
+        for index = 1:number_conditions
             
             % We process each condition folder appropriatly
             process_folder(information,parameters,index,conditions,eeg_info_name); 

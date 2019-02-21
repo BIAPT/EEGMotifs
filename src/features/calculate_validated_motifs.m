@@ -42,7 +42,7 @@ function [motifs] = calculate_validated_motifs(network,rewiring,number_rand_netw
     
     disp('Create Random Network')
     %% 2) Create X random network using our network of interest 
-    for i = 1:number_rand_network
+    parfor i = 1:number_rand_network
         disp(strcat("network: ",string(i)))
         [rand_network,~] = randmio_dir(network, rewiring);
         %% 3) Calculate the motif for the X random network. (BOTTLE NECK)
@@ -56,8 +56,15 @@ function [motifs] = calculate_validated_motifs(network,rewiring,number_rand_netw
     
     
     %% 4) Calculate the Z score for each motifs
+    
+    % First is to make a 100X13 motifs mean matrix
+    rand_frequency_mean_matrix = mean(rand_frequency,3);
+    mean_rand_frequency = mean(rand_frequency_mean_matrix);
+    std_rand_frequency = std(rand_frequency_mean_matrix);
+    mean_frequency = mean(frequency);
+    
     disp('Calculate Z score')
-    rand_frequency_mean = mean(sum(rand_frequency,3))';
+    rand_frequency_mean = mean(mean(rand_frequency,3))';
     rand_frequency_std = std(sum(rand_frequency,3))';
     frequency_sum = sum(frequency,2);
     z_score_frequency = (frequency_sum - rand_frequency_mean) ./ rand_frequency_std;
