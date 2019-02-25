@@ -57,17 +57,18 @@ function [motifs] = calculate_validated_motifs(network,rewiring,number_rand_netw
     
     %% 4) Calculate the Z score for each motifs
     
-    % First is to make a 100X13 motifs mean matrix
-    rand_frequency_mean_matrix = mean(rand_frequency,3);
-    mean_rand_frequency = mean(rand_frequency_mean_matrix);
-    std_rand_frequency = std(rand_frequency_mean_matrix);
-    mean_frequency = mean(frequency);
-    
+    cat_rand_frequency = rand_frequency(1,:,:);
+    for i = 2:number_rand_network
+        cat_rand_frequency = cat(3,cat_rand_frequency,rand_frequency(i,:,:));
+    end
+    cat_rand_frequency = squeeze(cat_rand_frequency)';
+
+    std_rand_frequency = std(cat_rand_frequency);
+
+    mean_rand_frequency = mean(cat_rand_frequency);
+ 
     disp('Calculate Z score')
-    rand_frequency_mean = mean(mean(rand_frequency,3))';
-    rand_frequency_std = std(sum(rand_frequency,3))';
-    frequency_sum = sum(frequency,2);
-    z_score_frequency = (frequency_sum - rand_frequency_mean) ./ rand_frequency_std;
+    z_score_frequency = (mean(frequency') - mean_rand_frequency) ./ std_rand_frequency;
     
     %% 5) Flag as statistically significant the motifs that have a Z = 1.96 (p < 0.05)
     disp('Threshold value that are not statistically significant')
