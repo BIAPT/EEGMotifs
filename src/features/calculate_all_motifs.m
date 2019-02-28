@@ -35,7 +35,13 @@ for i = 1:size(listing)
        figure_path_i = strcat(saving_folder,filesep,'figure_',name,'_intensity');
        figure_path_c = strcat(saving_folder,filesep,'figure_',name,'_coherence');  
        
-       [figure_f,figure_i,figure_c] = plot_motifs(motifs,1,eeg_info_name);
+       
+        EEG_info = load(eeg_info_name);
+        EEG_info = EEG_info.EEG_info;
+        
+       % Filter the non-scalp channel out
+       
+       [figure_f,figure_i,figure_c] = plot_motifs(motifs,1,EEG_info);
        saveas(figure_f,figure_path_f,'fig')
        saveas(figure_i,figure_path_i,'fig')
        saveas(figure_c,figure_path_c,'fig')

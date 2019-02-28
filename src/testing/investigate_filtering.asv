@@ -4,8 +4,4 @@
 
 % Step 2: Use the structure to filter out a loaded EEG_info structure and a
 % dpli matrix
-
-% Load the array
-data = load('plot/non_scalp_channel_label.mat');
-non_scalp_channel_label = data.non_scalp_channel_label;
-
+non_scalp_channel_label
