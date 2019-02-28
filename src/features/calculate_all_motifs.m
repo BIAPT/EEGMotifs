@@ -23,6 +23,13 @@ for i = 1:size(listing)
             matrix = data.NSTE;        
         end
 
+        EEG_info = load(eeg_info_name);
+        EEG_info = EEG_info.EEG_info;
+        disp('Filtering non-scalp channels')
+       % Filter the non-scalp channel out
+       [matrix,EEG_info] = filter_non_scalp(matrix,EEG_info);
+        
+        
        disp(['Analyzing file: ',file_name]); 
        motifs = calculate_validated_motifs(matrix,10,100);
        
@@ -35,12 +42,7 @@ for i = 1:size(listing)
        figure_path_i = strcat(saving_folder,filesep,'figure_',name,'_intensity');
        figure_path_c = strcat(saving_folder,filesep,'figure_',name,'_coherence');  
        
-       
-        EEG_info = load(eeg_info_name);
-        EEG_info = EEG_info.EEG_info;
-        
-       % Filter the non-scalp channel out
-       
+      
        [figure_f,figure_i,figure_c] = plot_motifs(motifs,1,EEG_info);
        saveas(figure_f,figure_path_f,'fig')
        saveas(figure_i,figure_path_i,'fig')
