@@ -49,12 +49,14 @@ function [dataset] = pad(dataset,index)
     
     % we should not pad these channels;
     %{
-    E1 E8 
-    E127 E126 E17 E128 E125 E21 E25 E32 E38 E44
-    E121 E114 E43 E49 E56 E63 E68 E73 E81 E120
-    E113 E107 E99 E94 E88 E57 E64 E69 E74 E82 E89 E95
-    E100 E48 E119
+    E1 E8 E14 E17 E21 E25 E32 E38 E43 E44 E48 E49 E56 E57 E63 E64 E68 E69 E73 E74 
+    E81 E82 E88 E89 E94 E95 E99 E100 E107 E113 E114 E119 E120 E121 E125
+    E126 E127 E128
+    
     %}
+    skip_array = [E1 E8 E14 E17 E21 E25 E32 E38 E43 E44 E48 E49 E56 E57 E63 E64 E68 E69 E73 E74 
+    E81 E82 E88 E89 E94 E95 E99 E100 E107 E113 E114 E119 E120 E121 E125
+    E126 E127 E128];
     zero_array = [];
     if(index == 3)
         zero_array = [8,13,23,45,56,57,63,107,115];
@@ -77,8 +79,8 @@ function [dataset] = pad(dataset,index)
     
     %% Here we pad when we need to
     index = 1;
-    for i = 1:129
-        if(ismember(i,zero_array))
+    for i = 1:
+        if(ismember(i,skip_array) || ismember(i,zero_array))
             frequency(:,i) = zeros(13,1);
             intensity(:,i) = zeros(13,1);
         else
