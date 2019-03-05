@@ -8,12 +8,12 @@ frequency = dataset.frequency_datasets;
 intensity = dataset.intensity_datasets;
 
 %% Average the raw number
-avg_raw_freq = zeros(13,129);
-avg_raw_int = zeros(13,129);
+avg_raw_freq = zeros(13,91);
+avg_raw_int = zeros(13,91);
 
-for i = 1:129
+for i = 1:91
     count = 0;
-    for j = 1:9
+    for j = 1:8
         % Check which channel is missing
         if(sum(frequency(j,:,i)) == 0)
            % should skip this one 
@@ -21,6 +21,7 @@ for i = 1:129
             count = count + 1;
         end
     end
+    
     for j = 1:13
         avg_raw_freq(j,i) = sum(frequency(:,j,i))/count; 
         avg_raw_int(j,i) = sum(intensity(:,j,i))/count;         
@@ -28,11 +29,13 @@ for i = 1:129
 end
 
 %% Normalized the data from the average participant
-avg_norm_freq = zeros(13,129);
-avg_norm_int = zeros(13,129);
+avg_norm_freq = zeros(13,91);
+avg_norm_int = zeros(13,91);
 for i = 1:13
-    avg_norm_freq(i,:) = (avg_raw_freq(i,:) - mean(avg_raw_freq(i,:)))/std(avg_raw_freq(i,:));
-    avg_norm_int(i,:) = (avg_raw_int(i,:) - mean(avg_raw_int(i,:)))/std(avg_raw_int(i,:));
+    if(std(avg_raw_freq(i,:)) ~= 0)
+        avg_norm_freq(i,:) = (avg_raw_freq(i,:) - mean(avg_raw_freq(i,:)))/std(avg_raw_freq(i,:));
+        avg_norm_int(i,:) = (avg_raw_int(i,:) - mean(avg_raw_int(i,:)))/std(avg_raw_int(i,:));
+    end
 end
 
 motifs = struct();

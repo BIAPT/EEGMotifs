@@ -5,13 +5,14 @@ datasets = load_files(paths);
 
 %% Padding
 for i = 1:length(datasets)
-   datasets(i).motifs = pad(datasets(i).motifs,i);
+   
+   datasets(i).motifs = pad(datasets(i).motifs,i+1);
 end
 
 %% Combine these files into one
 
-frequency_datasets = zeros(length(datasets),13,129);
-intensity_datasets = zeros(length(datasets),13,129);
+frequency_datasets = zeros(length(datasets),13,91);
+intensity_datasets = zeros(length(datasets),13,91);
 for i = 1:length(datasets)
     current_frequency = datasets(i).motifs.node_frequency;
     current_intensity = datasets(i).motifs.node_intensity;
@@ -54,8 +55,7 @@ function [dataset] = pad(dataset,index)
     E126 E127 E128
     
     %}
-    skip_array = [E1 E8 E14 E17 E21 E25 E32 E38 E43 E44 E48 E49 E56 E57 E63 E64 E68 E69 E73 E74 
-    E81 E82 E88 E89 E94 E95 E99 E100 E107 E113 E114 E119 E120 E121 E125 E126 E127 E128];
+    skip_array = [1, 8, 14, 17, 21, 25, 32, 38, 43, 44, 48, 49, 56, 57, 63, 64, 68, 69, 73, 74,81, 82, 88, 89, 94, 95, 99, 100, 107, 113, 114, 119, 120, 121, 125, 126, 127, 128];
     zero_array = [];
     if(index == 3)
         zero_array = [13,23,45,56,115];
@@ -70,26 +70,29 @@ function [dataset] = pad(dataset,index)
     elseif(index == 9)
         zero_array = [];
     else
-        return
+        zero_array = [];
     end
     
     frequency = zeros(13,91);
     intensity = zeros(13,91);
     
+    disp(index)
     %% Here we pad when we need to
     index = 1;
+    index_global = 1;
     for i = 1:129
         if(ismember(i,skip_array))
             continue
         end
         if(ismember(i,zero_array))
-            frequency(:,i) = zeros(13,1);
-            intensity(:,i) = zeros(13,1);
+            frequency(:,index_global) = zeros(13,1);
+            intensity(:,index_global) = zeros(13,1);
         else
-            frequency(:,i) = dataset.node_frequency(:,index);
-            intensity(:,i) = dataset.node_intensity(:,index);
+            frequency(:,index_global) = dataset.node_frequency(:,index);
+            intensity(:,index_global) = dataset.node_intensity(:,index);
             index = index + 1;
         end
+        index_global = index_global + 1;
     end
     dataset.node_frequency = frequency;
     dataset.node_intensity = intensity;
