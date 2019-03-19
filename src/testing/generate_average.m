@@ -26,8 +26,8 @@ for i=1:number_epoch
     data_struct = struct();
     data_struct.name = epochs{i};
     data_struct.frequency_data = zeros(number_frequencies,number_participant,number_motifs,number_channels);
-    data_struct.alpha_frequency_avg = zeros(number_motifs,number_channels);
-    data_struct.theta_frequency_avg = zeros(number_motifs,number_channels);
+    data_struct.alpha_frequency_avg = struct();
+    data_struct.theta_frequency_avg = struct();
     
     % Populate it
     for participant_id=1:number_participant
@@ -47,7 +47,8 @@ for i=1:number_epoch
     end
     
     % Calculate the average
-    
+    data_struct.alpha_frequency_avg = get_average(data_struct.frequency_data(1,:,:,:));
+    data_struct.theta_frequency_avg = get_average(data_struct.frequency_data(2,:,:,:));
     
     % Save it into data_motifs
     data_motifs = [data_motifs,data_struct];
@@ -181,4 +182,41 @@ function [dataset] = clean_data(dataset,index)
     end
     dataset.node_frequency = frequency;
     dataset.node_intensity = intensity;
+end
+
+function [motifs] = get_average(frequency)
+    %% Average the raw number
+    frequency = squeeze(frequency);
+    avg_raw_freq = zeros(13,91);
+
+    for i = 1:91
+        count = 0;
+        for j = 1:9
+            % Check which channel is missing
+            if(sum(frequency(j,:,i)) == 0)
+               % should skip this one 
+            else
+                count = count + 1;
+            end
+        end
+
+        for j = 1:13
+            avg_raw_freq(j,i) = sum(frequency(:,j,i))/count;     
+        end
+    end
+
+    %% Normalized the data from the average participant
+    avg_norm_freq = zeros(13,91);
+    for i = 1:13
+        if(std(avg_raw_freq(i,:)) ~= 0)
+            avg_norm_freq(i,:) = (avg_raw_freq(i,:) - mean(avg_raw_freq(i,:)))/std(avg_raw_freq(i,:));
+        end
+    end
+
+    motifs = struct();
+    motifs.analysis_type = "dpli";
+    motifs.graph_type = "weighted";
+    motifs.node_intensity = avg_norm_freq;
+    motifs.node_frequency = avg_norm_freq;
+    motifs.node_coherence = avg_norm_freq;
 end
