@@ -4,7 +4,7 @@
 %% Variables Declaration
 number_participant = 9;
 number_epoch = 10;
-number_channels = 91;
+number_channels = 99;
 number_motifs = 13;
 number_frequencies = 2;
 motif_name_alpha = 'motifs_dpli_alpha.mat';
@@ -137,31 +137,30 @@ function [dataset] = clean_data(dataset,index)
     
     % we should not pad these channels;
     %{
-    E1 E8 E14 E17 E21 E25 E32 E38 E43 E44 E48 E49 E56 E57 E63 E64 E68 E69 E73 E74 
-    E81 E82 E88 E89 E94 E95 E99 E100 E107 E113 E114 E119 E120 E121 E125
-    E126 E127 E128
-    
+    E1, E8, E14, E17, E21, E25, E32, E38, E43, E44, E48, E49, E56, E63 ,
+    E68, E73, E81, E88, E94, E99, E107, E113, E114, E119, E120, E121, E125,
+    E126, E127, E128
     %}
-    skip_array = [1, 8, 14, 17, 21, 25, 32, 38, 43, 44, 48, 49, 56, 57, 63, 64, 68, 69, 73, 74,81, 82, 88, 89, 94, 95, 99, 100, 107, 113, 114, 119, 120, 121, 125, 126, 127, 128];
+    skip_array = [1, 8, 14, 17, 21, 25, 32, 38, 43, 44, 48, 49, 56,63, 68, 73, 81, 88, 94, 99, 107, 113, 114, 119, 120, 121, 125, 126, 127, 128];
     zero_array = [];
     if(index == 3)
-        zero_array = [13,23,45,56,115];
+        zero_array = [8,13,23,45,56,57,63,107,115];
     elseif(index == 4)
-        zero_array = [18,22,40,123];
+        zero_array = [17,18,22,40,44,56,100,107,123];
     elseif(index == 5)
-        zero_array = [3,10,11,45,70,71,102,110,111];
+        zero_array = [3,10,11,45,57,70,71,102,110,111,126];
     elseif(index == 6)
         zero_array = [46,47,55];      
     elseif(index == 8)
-        zero_array = [];        
+        zero_array = [100];        
     elseif(index == 9)
-        zero_array = [];
+        zero_array = [8,21,25,81,88];
     else
         zero_array = [];
     end
     
-    frequency = zeros(13,91);
-    intensity = zeros(13,91);
+    frequency = zeros(13,99);
+    intensity = zeros(13,99);
     
     %% Here we pad when we need to
     index = 1;
@@ -187,9 +186,9 @@ end
 function [motifs] = get_average(frequency)
     %% Average the raw number
     frequency = squeeze(frequency);
-    avg_raw_freq = zeros(13,91);
+    avg_raw_freq = zeros(13,99);
 
-    for i = 1:91
+    for i = 1:99
         count = 0;
         for j = 1:9
             % Check which channel is missing
@@ -206,7 +205,7 @@ function [motifs] = get_average(frequency)
     end
 
     %% Normalized the data from the average participant
-    avg_norm_freq = zeros(13,91);
+    avg_norm_freq = zeros(13,99);
     for i = 1:13
         if(std(avg_raw_freq(i,:)) ~= 0)
             avg_norm_freq(i,:) = (avg_raw_freq(i,:) - mean(avg_raw_freq(i,:)))/std(avg_raw_freq(i,:));

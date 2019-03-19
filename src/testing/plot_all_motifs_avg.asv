@@ -1,0 +1,2 @@
+
+plot_motifs(data_motifs(1),0,EEG_info)
