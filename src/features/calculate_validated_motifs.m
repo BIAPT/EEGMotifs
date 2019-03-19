@@ -43,8 +43,7 @@ function [motifs] = calculate_validated_motifs(network,rewiring,number_rand_netw
     disp('Create Random Network')
     %% 2) Create X random network using our network of interest 
     parfor i = 1:number_rand_network
-        disp(strcat("network: ",string(i)))
-        [rand_network,~] = randmio_dir(network, rewiring);
+        [rand_network,~] = null_model_dir_sign(network,10,0.1);%randmio_dir(network, rewiring);
         %% 3) Calculate the motif for the X random network. (BOTTLE NECK)
         [rand_intensity(i,:,:),rand_coherence(i,:,:),rand_frequency(i,:,:)] = motif3funct_wei(rand_network);
     end

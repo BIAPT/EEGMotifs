@@ -39,7 +39,6 @@ end
 function [figure_f,figure_i,figure_c] = plot_motifs_wei(EEG_info,I,Q,F,norm)
     
     figure_i = figure('visible','off');
-    figure_i = figure('visible','on');
     size_m = size(Q,1);
     for i = 1:size_m
         if(size_m == 13)
@@ -59,7 +58,6 @@ function [figure_f,figure_i,figure_c] = plot_motifs_wei(EEG_info,I,Q,F,norm)
 
     
     figure_c = figure('visible','off');
-    %{
     for i = 1:size_m
         if(size_m == 13)
         subplot(4,4,i)
@@ -74,9 +72,8 @@ function [figure_f,figure_i,figure_c] = plot_motifs_wei(EEG_info,I,Q,F,norm)
     topoplot(Q(i,:),EEG_info.chanlocs,'maplimits','absmax', 'electrodes', 'off');
     colorbar;
     end
-%}
-    %figure_f = figure('visible','off');
-    figure_f = figure('visible','on');    
+    
+    figure_f = figure('visible','off');   
     for i = 1:size_m
         if(size_m == 13)
         subplot(4,4,i)
