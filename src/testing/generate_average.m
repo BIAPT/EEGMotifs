@@ -5,6 +5,9 @@
 number_participant = 9;
 number_epoch = 10;
 number_channels = 129;
+number_frequencies = 2;
+motif_name_alpha = 'motifs_dpli_alpha.mat';
+motif_name_theta = 'motifs_dpli_theta.mat';
 epochs = {'EC1','IF5','EMF5','EML5','EC3','EC4','EC5','EC6','EC7','EC8'};
 
 %% Step 1: Iterate throught the data and load it into a structure
@@ -21,15 +24,37 @@ for i=1:number_epoch
     % Create the structure
     data_struct = struct();
     data_struct.name = epochs{i};
-    data_struct.frequency_data = zeros(number_participant,number_channels,number_channels);
+    data_struct.frequency_data = zeros(number_frequencies,number_participant,number_channels,number_channels);
     
     % Populate it
-    
+    for participant_id=1:number_participant
+        participant_root = all_dir(participant_id);
+        participant_index = participant_root.index;
+        participant_path = participant_root.full_path;
+        
+        data_path_alpha = strcat(participant_path,filesep,data_struct.name,filesep,motif_name_alpha);
+        data_path_theta = strcat(participant_path,filesep,data_struct.name,filesep,motif_name_theta);
+        
+        motifs_data_alpha = get_motifs_data(data_path_alpha,participant_index);
+        motifs_data_theta = get_motifs_data(data_path_theta,participant_index);
+        
+        % Put them in frequency data
+    end
     % Save it into data_motifs
     data_motifs = [data_motifs,data_struct];
 end
 
+% Here we run through data_motifs and calculate the averages
+
+
+
 % Helper functions
+
+function [motifs_data] = get_motifs_data(full_path,index)
+    data = load(full_path);
+    motifs_data = data.motifs;
+end
+
 % Get all the dirs and process them to have the same structure as a call
 % to the dir() function + full path and give an index for the padding
 % portion of the code
@@ -47,7 +72,7 @@ function [all_dir] = get_all_directory(data_path)
        all_dir(i).full_path = full_path;
        
        % If its the . or .. directory we delete it
-       if(strcmp(name,'.') || strcmp(name,'..'))
+       if(strcmp(name,'.') || strcmp(name,'..') || fetch_index(name) == -1)
           all_dir(i) = [];
           i = i - 1;
           number_directory = number_directory - 1;
