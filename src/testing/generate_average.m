@@ -34,6 +34,7 @@ for i=1:number_epoch
         participant_root = all_dir(participant_id);
         participant_index = participant_root.index;
         participant_path = participant_root.full_path;
+        disp(participant_path);
         
         data_path_alpha = strcat(participant_path,filesep,data_struct.name,filesep,motif_name_alpha);
         data_path_theta = strcat(participant_path,filesep,data_struct.name,filesep,motif_name_theta);
@@ -77,9 +78,8 @@ function [all_dir] = get_all_directory(data_path)
     number_directory = length(all_dir);
     i = 1;
     while(i <= number_directory)
-       disp(i)
-       name = all_dir(i).name
-       folder = all_dir(i).folder
+       name = all_dir(i).name;
+       folder = all_dir(i).folder;
        full_path = strcat(folder,filesep,name);
        all_dir(i).full_path = full_path;
        
@@ -129,7 +129,7 @@ function [dataset] = clean_data(dataset,index)
     % 2 = MDAF05 no missing channels
     % 3 = MDAF06 8,13,23,45,56,57,63,107,115
     % 4 = MDAF07 17,18,22,40,44,56,100,107,123
-    % 5 = MDAF10 3,10,11,45,57,70,71,102,110,111,126
+    % 5 = MDAF10 3,10,11,36,45,57,70,71,101,102,109,110,111,126
     % 6 = MDAF11 46,47,55
     % 7 = MDAF12 no missing channels
     % 8 = MDAF15 100
@@ -148,7 +148,7 @@ function [dataset] = clean_data(dataset,index)
     elseif(index == 4)
         zero_array = [17,18,22,40,44,56,100,107,123];
     elseif(index == 5)
-        zero_array = [3,10,11,45,57,70,71,102,110,111,126];
+        zero_array = [3,10,11,36,45,57,70,71,101,102,109,110,111,126];
     elseif(index == 6)
         zero_array = [46,47,55];      
     elseif(index == 8)
