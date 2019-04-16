@@ -1,7 +1,7 @@
 %% Load data_motifs
 
 % Parameters
-motif = 1;
+motif = 2;
 num_epoch = 12;
 epoch_labels = {'EC1','IF5','EF5','EL30','EL10','EL5','EC3','EC4','EC5','EC6','EC7','EC8'};
 
