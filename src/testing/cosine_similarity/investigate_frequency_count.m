@@ -24,6 +24,7 @@ data = load('EEG_info_AVG.mat');
 chanlocs = data.EEG_info.chanlocs;
 
 X = zeros(num_pariticipant,num_epoch);
+
 for i=1:num_epoch
    epoch_data = data_motifs(i);
    all_frequency_data = squeeze(epoch_data.frequency_data(frequency_band,:,motif,:));
@@ -41,6 +42,7 @@ end
 
 
 plot_average_frequency_count(X,sprintf("Boxplot Sum Channels Frequency | %s | %s | Motif %d",sift_label,frequency,motif),epoch_labels);
+frequency_count = X;
 
 function plot_average_frequency_count(X,title_string,ticks_string)
     figure;

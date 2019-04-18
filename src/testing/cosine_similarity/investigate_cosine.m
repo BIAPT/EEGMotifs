@@ -34,18 +34,12 @@ for epoch_i = 1:num_epoch
    for epoch_j = 1:num_epoch
        A = alpha_vector(epoch_i,:);
        B = alpha_vector(epoch_j,:);
-       
-       % Sifting the two vectors
-       A = sift_anterior_posterior(A,chanlocs,sift);
-       B = sift_anterior_posterior(B,chanlocs,sift);       
+            
        alpha_cosim_matrix(epoch_i,epoch_j) = cosine_similarity(A,B);
        
        A = theta_vector(epoch_i,:);
        B = theta_vector(epoch_j,:);
        
-       % Sifting the two vectors
-       A = sift_anterior_posterior(A,chanlocs,sift);
-       B = sift_anterior_posterior(B,chanlocs,sift);  
        theta_cosim_matrix(epoch_i,epoch_j) = cosine_similarity(A,B);
    end
 end
