@@ -3,7 +3,7 @@
 % Parameters
 motif = 2;
 num_epoch = 12;
-sift = -1; % sift = 0 , means full head ; sift = 1 , means anterior ; sift = -1 means posterior
+sift = 1; % sift = 0 , means full head ; sift = 1 , means anterior ; sift = -1 means posterior
 epoch_labels = {'EC1','IF5','EF5','EL30','EL10','EL5','EC3','EC4','EC5','EC6','EC7','EC8'};
 sift_label = 'Full';
 if(sift == 1)
