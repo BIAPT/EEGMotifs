@@ -1,9 +1,9 @@
 % Parameters
-motif = 7;
+motif = 1;
 num_epoch = 12;
 num_participant = 9;
-frequency_band = 2; % 1 = alpha, 2 = theta
-sift = -1; % sift = 0 , means full head ; sift = 1 , means anterior ; sift = -1 means posterior
+frequency_band = 1; % 1 = alpha, 2 = theta
+sift = 1; % sift = 0 , means full head ; sift = 1 , means anterior ; sift = -1 means posterior
 if(frequency_band == 1)
    frequency = 'alpha'; 
 else
